@@ -38,3 +38,54 @@ print('hello {obj} {} i am {name}'.format(*args, **kwargs))
 # 输入结果：hello world , i am python
 
 注意：魔法参数跟你函数中使用的性质是一样的：这里format(*args, **kwargs)) 等价于：format(‘,’,’inx’,obj = ‘world’,name = ‘python’)
+
+10. 
+filter(function, sequence)：对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple（取决于sequence的类型）。
+map(function, sequence) ：对sequence中的item依次执行function(item)，将执行结果function(item)组成一个List返回。
+reduce(function, sequence, starting_value)：对sequence中的item顺序迭代调用function，如果有starting_value，还可以作为初始值调用。function接收的参数个数只能为2，先把sequence中第一个值和第二个值当参数传给function，再把function的返回值和第三个值当参数传给function，然后只返回一个结果。
+
+#1.lambda用法，冒号之前的是入参，冒号之后的是表达式，返回的值，最简单的函数
+print [(lambda x:x*x)(x)for x in range(11)]
+#结果：[0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+print (lambda x:x*x)(3)
+#结果：9
+g=lambda x:x*x
+print g(4)
+#结果：16
+
+#2.filter用法:返回执行结果为TRUE的入参（入参是列表字符元组）
+print filter(lambda x:x*x-4,range(10))
+#结果：[0, 1, 3, 4, 5, 6, 7, 8, 9]
+
+def is_odd(n):
+    return n % 2 == 1 
+newlist = filter(is_odd, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+print(newlist)
+
+
+#3.map的用法：对列表入参依次执行函数。入参为列表，有多少个列表，就应该有多少个入参。
+print map(lambda x:x*x-4,range(10))
+#结果：[-4, -3, 0, 5, 12, 21, 32, 45, 60, 77]
+print map(lambda x,y:x*y-4,range(3),[8,9,10])
+#结果：[-4, 5, 16]
+
+#4.reduce用法：先把sequence中第一个值和第二个值当参数传给function，再把function的返回值和第三个值当参数传给fuction,最终返回一个结果值
+#接收的入参个数只能为2
+print reduce(lambda x,y:x*y-4,range(4))
+#结果：-40
+#计算0到100的和
+print reduce(lambda x,y:x+y, range(101))
+#结果：5050
+print reduce(lambda x,y:x+y, range(101),100)
+#结果：5150
+
+11. 参数的元信息，便于函数使用
+def add(a:int, b:int) -> int:
+	return a*b
+
+print(add(3,5))
+
+(help(add))
+print(add.__annotations__)
+
+12. 
